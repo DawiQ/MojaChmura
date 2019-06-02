@@ -96,43 +96,179 @@
 				  <p class="mb-0">Już teraz rozpocznij przygodę z naszym systemem i podziel się z nami swoimi plikami!</p>
 				</div>
 				
-				<h1 class="mt-4">Moje pliki</h1>
-				
-				<div class="explorer">
-					<div class="leftPanel">
-						<div class="list-group">
-						  <a href="#" class="list-group-item list-group-item-action">Dokumenty</a>
-						  <a href="#" class="list-group-item list-group-item-action">Folder 1</a>
-						  <a href="#" class="list-group-item list-group-item-action">Domowe</a>
-						  <a href="#" class="list-group-item list-group-item-action">Filmiki</a>
-						  <a href="#" class="list-group-item list-group-item-action">Youtube</a>
-						</div>
-					</div>
-					<div class="rightPanel">
-						<div class="folder">
-							<i class="far fa-folder"></i>
-							Nazwa folderu
-						</div>
-						
-						<div class="folder">
-							<i class="far fa-folder"></i>
-							Drugi folder
-						</div>
-						
-						<br>
-						
-						<div class="file">
-							<i class="far fa-file"></i>
-							pliczek.txt
-						</div>
-						
-						<div class="file">
-							<i class="far fa-file-pdf"></i>
-							ważneDane.pdf
-						</div>
-					</div>
+				<div id="file">
+					
 				</div>
 				
+				<div id="myFiles">
+					<h1 class="mt-4">Moje pliki</h1>
+					
+					<div class="explorer" style="margin-top:30px;">
+						<div class="leftPanel">
+							<div class="list-group">
+							  <a href="#" class="list-group-item list-group-item-action directory">Dokumenty</a>
+							  <a href="#" class="list-group-item list-group-item-action directory">Folder</a>
+							  <a href="#" class="list-group-item list-group-item-action directory">Domowe</a>
+							  <a href="#" class="list-group-item list-group-item-action directory">Filmiki</a>
+							</div>
+						</div>
+						<div class="rightPanel">
+							<div id="Dokumenty" class="hidden">
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Nazwa folderu
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Drugi folder
+								</div>
+								
+								<br>
+								
+								<div class="file">
+									<i class="far fa-file"></i>
+									pliczek.txt
+								</div>
+								
+								<div class="file">
+									<i class="far fa-file-pdf"></i>
+									ważneDane.pdf
+								</div>
+							</div>
+							
+							<div id="Folder" class="hidden">
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Lolek
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									trzeci folder
+								</div>
+								
+								<br>
+								
+								<div class="file">
+									<i class="far fa-file"></i>
+									pliczkowo.txt
+								</div>
+								
+								<div class="file">
+									<i class="far fa-file-pdf"></i>
+									nieWażneDane.pdf
+								</div>
+							</div>
+							
+							<div id="Domowe" class="hidden">
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Jakiś folder
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Drugi folder
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Czwarty folder
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Piąty folder
+								</div>
+								
+								<br>
+								
+								<div class="file">
+									<i class="far fa-file"></i>
+									pliczek.txt
+								</div>
+								
+								<div class="file">
+									<i class="far fa-file-pdf"></i>
+									ważneDane.pdf
+								</div>
+							</div>
+							
+							<div id="Filmiki" class="hidden">
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Jakiś folder 5
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Drugi folder
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Czwarty folder
+								</div>
+								
+								<div class="folder">
+									<i class="far fa-folder"></i>
+									Piąty folder
+								</div>
+								
+								<br>
+								
+								<div class="file">
+									<i class="far fa-file"></i>
+									pliczek.txt
+								</div>
+								
+								<div class="file">
+									<i class="far fa-file-pdf"></i>
+									ważneDane.pdf
+								</div>
+								
+								<div class="file">
+									<i class="far fa-file-pdf"></i>
+									kolokwium.pdf
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<h1 class="mt-4">Ostatnia aktywność</h1>
+					
+					<div class="container">
+						<div class="col-12" style="margin-top:30px;">
+							<div class="list-group">
+								<div href="#" class="list-group-item list-group-item-action">
+									<div class="col-6">
+										<i>Moje koncicho</i> dodał plik <i>ważneDane.pdf</i> w kategorii <b>Dokumenty</b>
+									</div>
+								</div>
+								<div href="#" class="list-group-item list-group-item-action">
+									<div class="col-6">
+										<i>Moje koncicho</i> dodał plik <i>pliczek.txt</i> w kategorii <b>Dokumenty</b>
+									</div>
+								</div>
+								<div href="#" class="list-group-item list-group-item-action">
+									<div class="col-6">
+										<i>Moje koncicho</i> utworzył folder <i>Drugi folder</i> w kategorii <b>Dokumenty</b>
+									</div>
+								</div>
+								<div href="#" class="list-group-item list-group-item-action">
+									<div class="col-6">
+										<i>Moje koncicho</i> dodał plik <i>pliczkowo.txt</i> w kategorii <b>Folder</b>
+									</div>
+								</div>
+								<div href="#" class="list-group-item list-group-item-action">
+									<div class="col-6">
+										<i>Moje koncicho</i> dodał plik <i>kolokwium.pdf</i> w kategorii <b>Filmiki</b>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
 			</div>
 		</div>
 		<!-- /#page-content-wrapper -->
@@ -144,5 +280,6 @@
 <script type="text/javascript" src="http://www.prepbootstrap.com/Content/data/fileManagerData.js"></script>
 
 	<script src="js/sidebarScript.js"></script>
+	<script src="js/explorerScript.js"></script>
 </body>
 </html>

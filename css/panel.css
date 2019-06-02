@@ -46,7 +46,8 @@
 	margin-right: 5px;
 	border: 1px solid #EAEAEA;
 	border-radius: 3px;
-	height: 400px;
+	min-height: 250px;
+	overflow-y: auto;
 }
 
 .leftPanel{
@@ -90,4 +91,8 @@
 
 .goodJob i:hover{
 	cursor: pointer;
+}
+
+.hidden{
+	display: none;
 }
