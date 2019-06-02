@@ -8,7 +8,12 @@ $(document).ready(function(){
 	
 	$(".goodJob i").click( function(){
 		$(this).parent().slideUp(500);
-	});
+    });
+    
+    $("#pliczek").click( function(){
+        $("#lastActivity").css("display","none")
+        $("#fileInfo").css("display","block")
+    });
 });
 
 $(function () {
