@@ -1,8 +1,13 @@
 $(document).ready(function(){
 	
-	$(".no-gutters input.col-6").click( function(){
+	$("#btnAction").click( function(){
 		$(".loginBox").toggle();
 		$(".registrationBox").toggle();
+		
+		if( $(".loginBox").is(":visible") )
+			$(this).val('Rejestracja');
+		else
+			$(this).val('Logowanie');
 	});
 	
 });
