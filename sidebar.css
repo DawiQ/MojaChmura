@@ -1,0 +1,85 @@
+body {
+  overflow-x: hidden;
+}
+
+.container-fluid{
+	margin-top: 1em;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem 0 1.25rem;
+  font-size: 1.2rem;
+  min-height: 50px;
+  overflow: auto;
+}
+
+#sidebar-wrapper .list-group {
+  width: auto;
+  overflow-y: auto;
+  
+}
+
+#menu-toggle{
+	display: block;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+  
+  #menu-toggle{
+	  display: none;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+.sidebar-user-picture{
+	text-align: center;
+}
+
+.sidebar-user-picture img {
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    padding: 0.1em;
+    display: inline-block;
+    max-width: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .15)
+}
+
+.userName{
+	margin: 0.5em;
+	text-align: center;
+}
+
+ul.pagination li a{
+	color: #333333;
+}

@@ -1,0 +1,25 @@
+input[type=text], input[type = password], input[type=submit], input[type = email]{
+    width: inherit;
+    margin: 0.5em 0 0.5em 0;
+}
+
+#login, #userName{
+    margin: 1em 0 0.5em 0;
+}
+
+#btnConfirm{
+    margin: 0.5em 0 1em 0;
+}
+
+#btnLogIn, #btnRegistration{
+	margin: 0em;
+}
+
+#container{
+    background-color: gray;
+    margin: 10em auto auto auto;
+}
+
+.registrationBox{
+	display: none;
+}

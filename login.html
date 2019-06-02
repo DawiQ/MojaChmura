@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+        <link rel="stylesheet" href="loginStyle.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+		<title>Hello, world!</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    </head>
+    <body>
+
+        <div class="row no-gutters">
+
+            <div id = "container" class="col-3">
+
+				<div class="loginBox">
+					<form>
+						<div class = "row">
+							<div class="col-1"></div>
+							<div class = "col-10">
+								<input id="login" name="login" type="text" placeholder="Nazwa użytkownika.." required pattern="[A-Za-z0-9]{1-20}" />
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class="col-1"></div>
+							<div class = "col-10">
+								<input id="password" name="password" type="password" placeholder="Hasło.." required pattern="[A-Za-z0-9]{1-20}" />
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class="col-5"></div>
+							<div class = "col-6">
+								<input id = "btnConfirm" name="btnConfirm" type="submit" value="Zaloguj">
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="registrationBox">
+					<form>
+						<div class = "row">
+							<div class="col-1"></div>
+							<div class = "col-10">
+								<input id="userName" name="userName" type="text" placeholder="Nazwa użytkownika.." required pattern="[A-Za-z0-9]{1-20}" />
+							</div>
+						</div>
+						
+						<div class = "row">
+							<div class="col-1"></div>
+							<div class = "col-10">
+								<input id="email" name="email" type="email" placeholder="E-mail.."  required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  />
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class="col-1"></div>
+							<div class = "col-10">
+								<input id="password" name="password" type="password" placeholder="Hasło.." required pattern="[A-Za-z0-9]{1-20}" />
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class="col-1"></div>
+							<div class = "col-10">
+								<input id="password2" name="password2" type="password" placeholder="Powtórz hasło.." required pattern="[A-Za-z0-9]{1-20}" />
+							</div>
+						</div>
+
+						<div class = "row">
+							<div class="col-5"></div>
+							<div class = "col-6">
+								<input id = "btnConfirm" name="btnConfirm" type="submit" value="Utwórz konto">
+							</div>
+						</div>
+					</form>
+				</div>
+
+                <div class = "row no-gutters">
+                        <input class = "col-6" id = "btnLogIn" type="button" value="Loguj">
+                        <input class = "col-6" id = "btnRegistration" type="button" value="Rejestruj" >
+                </div>
+
+            </div>
+
+        </div>
+		
+		<script src="loginScript.js" type="text/javascript"></script>
+        
+    </body>
+</html>
