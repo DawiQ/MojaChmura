@@ -15,6 +15,10 @@ input[type=text], input[type = password], input[type=submit], input[type = email
 	margin: 0em;
 }
 
+#btnAction:hover, #btnConfirm:hover{
+	cursor: pointer;
+}
+
 #container{
     background-color: gray;
     margin: 10em auto auto auto;
