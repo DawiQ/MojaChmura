@@ -132,7 +132,7 @@
 
 								<br>
 
-								<div class="file" id="pliczek">
+								<div class="file" class="pliczek">
 									<i class="far fa-file"></i>
 									pliczek.txt
 								</div>
@@ -283,12 +283,25 @@
 					<div class="container">
 						<h1 class="mt-4">Informacje o pliku</h1>
 
+					<i class="far fa-times-circle closeFilePanel"></i>
 						<div class="col-12" style="margin-top:30px;">
 							<div class="list-group">
 								<div href="#" class="list-group-item list-group-item-action">
 									<div>
 										<div class="row">
-											<div class="col-8"></div>
+											<div class="col-8"><div onmouseover="$('.visibleArrow', this).css('visibility', 'visible')"
+											onmouseout="$('.visibleArrow', this).css('visibility', 'hidden');"
+											class="filename mpg">
+											<h3> <i class="far fa-file"></i>
+												<a class="expanderHeader downloadAction downloadContext"
+													href="download/pliczek.txt" title="pliczek.txt">
+													<span class="bold"></span>
+												</a>
+												<i class="fas fa-cloud-download-alt downloadArrow visibleArrow"></i>
+
+											</h3>
+
+										</div></div>
 											<div class="col-4">
 												<div>&#9733;&#9733;&#9733;&#9734;&#9734; 3/5</div>
 												<div><span>701,5 MB</span></div>
@@ -298,19 +311,7 @@
 											</div>
 										</div>
 
-										<div onmouseover="$('.visibleArrow', this).css('visibility', 'visible')"
-											onmouseout="$('.visibleArrow', this).css('visibility', 'hidden');"
-											class="filename mpg">
-											<h3> <i class="far fa-file"></i>
-												<a class="expanderHeader downloadAction downloadContext"
-													href="download/pliczek.txt" title="pliczek.txt">
-													<span class="bold">pliczek</span>.txt
-												</a>
-												<i class="fas fa-cloud-download-alt downloadArrow visibleArrow"></i>
-
-											</h3>
-
-										</div>
+										
 
 										<div class="row">
 											<div class="col-3">
@@ -343,13 +344,13 @@
 								<div>
 									<div class="row">
 										<form class="col-10">
-											<input class="col-12" type="text" name="LastName"
-												value="Dodaj komentarz"><br>
+											<input class="col-12 commentValue" type="text" name="LastName"
+												value="" placeholder="Dodaj komentarz.."><br>
 										</form>
-										<input class="col-2 " type="submit" value="Wyślij">
+										<input class="col-2 submitComment " type="submit" value="Wyślij">
 									</div>
 
-									<div href="#" class="list-group-item list-group-item-action" style="margin:5px">
+									<div href="#" class="list-group-item list-group-item-action comments" style="margin:5px">
 										<div class="row">
 											<b class="list-group-item col-2">Uzytkownik</b>
 											<p class="list-group-item  col-8 "> przykładowy komentarz</p>

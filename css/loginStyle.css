@@ -3,6 +3,10 @@ input[type=text], input[type = password], input[type=submit], input[type = email
     margin: 0.5em 0 0.5em 0;
 }
 
+.loginBox{
+	display: none;
+}
+
 #login, #userName{
     margin: 1em 0 0.5em 0;
 }

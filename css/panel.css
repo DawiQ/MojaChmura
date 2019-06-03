@@ -96,3 +96,18 @@
 .hidden{
 	display: none;
 }
+
+.closeFilePanel:hover{
+	cursor: pointer;
+}
+
+.closeFilePanel{
+	position: relative;
+	top: -30px;
+	left: -20px;
+float: right;
+}
+
+.mpg{
+	padding: 20px;
+}

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	
+	$( ".commentValue").val('');
+	
     $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
@@ -9,11 +12,26 @@ $(document).ready(function(){
 	$(".goodJob i").click( function(){
 		$(this).parent().slideUp(500);
     });
+	
+	$(".closeFilePanel").click(function(){
+        $("#fileInfo").slideUp( 300 );
+        $("#lastActivity").slideDown( 300 );
+	});
     
-    $("#pliczek").click( function(){
-        $("#lastActivity").css("display","none")
-        $("#fileInfo").css("display","block")
+    $(".file").click( function(){
+		//alert( $(this).text() );
+		$(".bold").text( $(this).text() );
+        $("#lastActivity").slideUp( 300 );
+        $("#fileInfo").slideDown( 300 );
     });
+	
+	$(".submitComment").click(function(e){
+		e.preventDefault();
+		var comment = $( ".commentValue").val();
+		
+		$(".comments").prepend( '<div class="row"><b class="list-group-item col-2">Nowy user</b><p class="list-group-item  col-8 "> ' + comment + '</p></div>' );
+	});
+	
 });
 
 $(function () {
