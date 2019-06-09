@@ -1,3 +1,47 @@
+<?php
+ob_start();
+session_start();
+
+// sprawdzam czy użytkownik nie jest czasem zalogowany
+// jeżeli tak to wyjazd na strone główną
+if( isset( $_SESSION['logged'] ) ){
+	header("Location: index.php");
+	die('Przekierowywanie..');
+// tutaj sprawdzam czy wysłano formularz
+}else if( isset( $_POST ) && !empty($_POST) ){
+	try{
+		$pdo = new PDO('sqlite:database/mojaChmura');
+		
+		// formularz logowania
+		if( isset( $_POST['btnConfirmLogin'] ) ){
+			$query = "SELECT * FROM Users WHERE UserName = :userName AND UserPassword = :userPassword";
+			$stmt = $pdo -> prepare( $query );
+			$stmt -> bindParam( ":userName", $_POST['login'] );
+			$stmt -> bindParam( ":userPassword", $_POST['password'] );
+			
+			$stmt -> execute();
+			$result = $stmt -> fetchAll( PDO::FETCH_ASSOC );
+			
+			if( !empty( $result ) ){
+				$_SESSION['logged'] = 1;
+				$_SESSION['userName'] = $result['UserName'];
+				$_SESSION['userImage'] = $result['UserImage'];
+				
+				header("Location: index.php");
+				die('Zalogowano');
+			}
+		// formularz rejstracji
+		}else{
+			echo 'Rejestracja';
+		}
+	}catch(PDOException $e)
+	{
+		// coś tam z błędem
+		echo 'Nie można połączyć się z bazą :(';
+	}
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pl">
     <head>
@@ -19,7 +63,7 @@
             <div id = "container" class="col-3">
 
 				<div class="loginBox">
-					<form>
+					<form action="login.php" method="POST">
 						<div class = "row">
 							<div class="col-1"></div>
 							<div class = "col-10">
@@ -37,14 +81,14 @@
 						<div class = "row">
 							<div class="col-5"></div>
 							<div class = "col-6">
-								<input id = "btnConfirm" name="btnConfirm" type="submit" value="Zaloguj">
+								<input id = "btnConfirm" name="btnConfirmLogin" type="submit" value="Zaloguj">
 							</div>
 						</div>
 					</form>
 				</div>
 				
 				<div class="registrationBox">
-					<form>
+					<form action="login.php" method="POST">
 						<div class = "row">
 							<div class="col-1"></div>
 							<div class = "col-10">
@@ -76,7 +120,7 @@
 						<div class = "row">
 							<div class="col-5"></div>
 							<div class = "col-6">
-								<input id = "btnConfirm" name="btnConfirm" type="submit" value="Utwórz konto">
+								<input id = "btnConfirm" name="btnConfirmRegistration" type="submit" value="Utwórz konto">
 							</div>
 						</div>
 					</form>
@@ -94,3 +138,6 @@
         
     </body>
 </html>
+<?php
+ob_end_flush();
+?>

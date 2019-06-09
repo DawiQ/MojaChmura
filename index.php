@@ -1,3 +1,16 @@
+<?php
+ob_start();
+session_start();
+
+//sprawdzam czy wywołano akcję wylogowania
+if( isset( $_GET['logout'] ) ){
+	$_SESSION['logged'] = 0;
+	session_destroy();
+	
+	header("Location: login.php");
+	die();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -400,3 +413,6 @@
 </body>
 
 </html>
+<?php
+ob_end_flush();
+?>
