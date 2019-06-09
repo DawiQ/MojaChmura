@@ -1,3 +1,58 @@
+<?php
+ob_start();
+session_start();
+
+//sprawdzam czy wywołano akcję wylogowania
+if( isset( $_GET['logout'] ) ){
+	$_SESSION['logged'] = 0;
+	session_destroy();
+	
+	header("Location: login.php");
+	die();
+}else if( isset( $_POST ) && !empty($_POST)){
+	
+	// łączę się z bazą
+	try{
+		$pdo = new PDO('sqlite:database/mojaChmura');
+	}catch(PDOException $e)
+	{
+		// coś tam z błędem
+		echo 'Nie można połączyć się z bazą :(';
+	}
+	//tutaj obsługujemy ewentualne formularz w taki sposób:
+	// potrzebne dane pobieramy ze zemiennej $_SESSION lub $_POST lub $_GET
+	// $_POST odpowiada za dane przesyłane przez formularz
+	// $_GET to tablica parametrów z adresu tzn stąd http://localhost/index.php?zmienna1=wartosc&zmienna2=wartosc2
+	// w $_SESSION przechowujemy informacje o zalogowanym uzytkowniku
+	// do wyswietlania zawartosci poszczegolnych tablic polecam funkcje var_dump() która jako
+	// parametr przyjmuje tablice do wyswietlenia
+	
+	// tutorial do bazy danych https://websitebeaver.com/php-pdo-prepared-statements-to-prevent-sql-injection#named-parameters
+	// łączymy się z bazą przez zmienną $pdo 
+	
+	
+	
+	
+	// tutaj leci kod
+	
+	
+	
+	
+	
+	// tutaj strona się odświeży żeby nie stracić danych o oglądanym folderze itp
+	header("Refresh:0");
+	die();
+	
+}else{
+	try{
+		$pdo = new PDO('sqlite:database/mojaChmura');
+	}catch(PDOException $e)
+	{
+		// coś tam z błędem
+		echo 'Nie można połączyć się z bazą :(';
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +61,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Hello, World</title>
+	<title>Moja Chmura</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -31,11 +86,11 @@
 			<div class="sidebar-heading ">
 
 				<div class="sidebar-user-picture">
-					<img alt="Avatar" id="avatar" src="http://bootdey.com/img/Content/avatar/avatar6.png">
+					<img alt="Avatar" id="avatar" src="<?= $_SESSION['userImage'] ?>">
 				</div>
 
 				<div class="userName">
-					<span>Moje koncicho</span>
+					<span><?= $_SESSION['userName']?></span>
 				</div>
 			</div>
 			<div class="logoutButton">
@@ -48,17 +103,26 @@
 			</div>
 
 			<div class="list-group list-group-flush">
-				<a href="#" class="list-group-item list-group-item-action bg-light">Moje pliki</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 1</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 2</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 3</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 4</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 5</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 6</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 7</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 8</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 9</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">User 10</a>
+				<?php
+				
+					if( !isset( $_GET['userId'] ) ){
+						$query = "SELECT * FROM Users WHERE UserId = :userName";
+					}
+					
+					$query = "SELECT UserName, UserId FROM Users";
+					$stmt = $pdo -> prepare( $query );
+					
+					$stmt -> execute();
+					$result = $stmt -> fetchAll( PDO::FETCH_ASSOC );
+					
+					foreach( $result as $user ){
+						?>
+							<a href="?userId=<?=$user['UserId']?>" class="list-group-item list-group-item-action bg-light"><?= $user['UserName']?></a>
+						<?php
+					}
+				
+				?>
+				
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">
 						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -92,156 +156,132 @@
 		  </nav>-->
 
 			<div class="container-fluid">
-				<div class="alert alert-success goodJob" role="alert">
-					<h4 class="alert-heading">Dobra robota!</h4>
-					<i class="far fa-times-circle"></i>
-					<p>Cześć! Właśnie zalogowałeś się na konto w systemie Moja Chmura! Dzielenie się plikami łatwiejsze
-						nie będzie!</p>
-					<hr>
-					<p class="mb-0">Już teraz rozpocznij przygodę z naszym systemem i podziel się z nami swoimi plikami!
-					</p>
-				</div>
+			
+				<?php
+				
+				if( $_SESSION['showedHey'] == 0 ){
+					$_SESSION['showedHey'] = 1;
+					?>
+					
+					<div class="alert alert-success goodJob" role="alert">
+						<h4 class="alert-heading">Dobra robota!</h4>
+						<i class="far fa-times-circle"></i>
+						<p>Cześć! Właśnie zalogowałeś się na konto w systemie Moja Chmura! Dzielenie się plikami łatwiejsze
+							nie będzie!</p>
+						<hr>
+						<p class="mb-0">Już teraz rozpocznij przygodę z naszym systemem i podziel się z nami swoimi plikami!
+						</p>
+					</div>
+					<?php
+					
+				}
+						
+				?>
 
 				<div id="file">
 
 				</div>
 
+				<?php
+					if( !isset( $_GET['userId'] ) ){
+						$id = $_SESSION['userId'];
+					}else{
+						$id = $_GET['userId'];
+					}
+						
+					$query = "SELECT * FROM Users WHERE UserId = :userId";
+					$stmt = $pdo -> prepare( $query );
+					$stmt -> bindParam( ":userId", $id );
+					
+					$stmt -> execute();
+					$result = $stmt -> fetch( PDO::FETCH_ASSOC );
+				
+				?>
+				
 				<div id="myFiles">
-					<h1 class="mt-4">Moje pliki</h1>
+					<h1 class="mt-4">Pliki użytkownika <?= $result['UserName']?></h1>
 
 					<div class="explorer" style="margin-top:30px;">
 						<div class="leftPanel">
 							<div class="list-group">
-								<a href="#" class="list-group-item list-group-item-action directory">Dokumenty</a>
-								<a href="#" class="list-group-item list-group-item-action directory">Folder</a>
-								<a href="#" class="list-group-item list-group-item-action directory">Domowe</a>
-								<a href="#" class="list-group-item list-group-item-action directory">Filmiki</a>
+							<?php
+							
+								// pobieranie Id root'a
+								$query = "SELECT * FROM Categories WHERE UserId = :userId  AND CategoryParent = 0";
+								$stmt = $pdo -> prepare( $query );
+								$stmt -> bindParam( ":userId", $id );
+								
+								$stmt -> execute();
+								$rootId = $stmt -> fetch( PDO::FETCH_ASSOC );
+								$rootId = $rootId['CategoryId'];
+								
+								$query = "SELECT * FROM Categories WHERE UserId = :userId  AND CategoryParent = :rootId";
+								$stmt = $pdo -> prepare( $query );
+								$stmt -> bindParam( ":userId", $id );
+								$stmt -> bindParam( ":rootId", $rootId );
+								
+								$stmt -> execute();
+								$categories = $stmt -> fetchAll( PDO::FETCH_ASSOC );
+								
+								foreach( $categories as $category ){
+									?>
+									<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
+									<?php
+								}
+							?>
 							</div>
 						</div>
 						<div class="rightPanel">
-							<div id="Dokumenty" class="hidden">
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Nazwa folderu
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Drugi folder
-								</div>
-
-								<br>
-
-								<div class="file" class="pliczek">
-									<i class="far fa-file"></i>
-									pliczek.txt
-								</div>
-
-								<div class="file">
-									<i class="far fa-file-pdf"></i>
-									ważneDane.pdf
-								</div>
-							</div>
-
-							<div id="Folder" class="hidden">
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Lolek
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									trzeci folder
-								</div>
+							<div id="Dokumenty">
+								<?php
+									if( !isset( $_GET['category'] ) || empty( $_GET['category'] ) ){
+										$folderId = 0;
+									}else{
+										$folderId = $_GET['category'];
+									}
+								
+									$query = "SELECT * FROM Categories WHERE UserId = :userId  AND CategoryParent = :folderId AND CategoryParent != 0";
+									$stmt = $pdo -> prepare( $query );
+									$stmt -> bindParam( ":userId", $id );
+									$stmt -> bindParam( ":folderId", $folderId );
+									
+									$stmt -> execute();
+									$categories = $stmt -> fetchAll( PDO::FETCH_ASSOC );
+									
+									foreach( $categories as $category ){
+										?>
+										<div class="folder">
+											<i class="far fa-folder"></i>
+											<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>"><?=$category['CategoryName'] ?></a>
+										</div>
+										<?php
+									}
+								?>
 
 								<br>
-
-								<div class="file">
-									<i class="far fa-file"></i>
-									pliczkowo.txt
-								</div>
-
-								<div class="file">
-									<i class="far fa-file-pdf"></i>
-									nieWażneDane.pdf
-								</div>
-							</div>
-
-							<div id="Domowe" class="hidden">
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Jakiś folder
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Drugi folder
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Czwarty folder
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Piąty folder
-								</div>
-
-								<br>
-
-								<div class="file">
-									<i class="far fa-file"></i>
-									pliczek.txt
-								</div>
-
-								<div class="file">
-									<i class="far fa-file-pdf"></i>
-									ważneDane.pdf
-								</div>
-							</div>
-
-							<div id="Filmiki" class="hidden">
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Jakiś folder 5
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Drugi folder
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Czwarty folder
-								</div>
-
-								<div class="folder">
-									<i class="far fa-folder"></i>
-									Piąty folder
-								</div>
-
-								<br>
-
-								<div class="file" >
-									<i class="far fa-file"></i>
-									pliczek.txt
-								</div>
-
-								<div class="file">
-									<i class="far fa-file-pdf"></i>
-									ważneDane.pdf
-								</div>
-
-								<div class="file">
-									<i class="far fa-file-pdf"></i>
-									kolokwium.pdf
-								</div>
+								
+								<?php
+								$query = "SELECT * FROM Files WHERE CategoryId = :folderId";
+									$stmt = $pdo -> prepare( $query );
+									$stmt -> bindParam( ":folderId", $folderId );
+									
+									$stmt -> execute();
+									$files = $stmt -> fetchAll( PDO::FETCH_ASSOC );
+									
+									foreach( $files as $file ){
+										?>
+										<div class="file" class="pliczek">
+											<i class="far fa-file"></i>
+											<?=$file['FileName']?>
+										</div>
+										<?php
+									}
+								?>
 							</div>
 						</div>
 					</div>
 
+					
 
 
 					<div id = "lastActivity" class="container">
@@ -400,3 +440,6 @@
 </body>
 
 </html>
+<?php
+ob_end_flush();
+?>
