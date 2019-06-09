@@ -20,20 +20,55 @@ if( isset( $_SESSION['logged'] ) ){
 			$stmt -> bindParam( ":userPassword", $_POST['password'] );
 			
 			$stmt -> execute();
-			$result = $stmt -> fetchAll( PDO::FETCH_ASSOC );
+			$result = $stmt -> fetch( PDO::FETCH_ASSOC );
 			
 			if( !empty( $result ) ){
 				$_SESSION['logged'] = 1;
 				$_SESSION['userName'] = $result['UserName'];
 				$_SESSION['userImage'] = $result['UserImage'];
-				
-				header("Location: index.php");
-				die('Zalogowano');
+				$_SESSION['userId'] = $result['UserId'];
+			}else{
+				die('Cos poszlo nie tak :(');
 			}
 		// formularz rejstracji
 		}else{
-			echo 'Rejestracja';
+			$image = 'https://www.bootdey.com/img/Content/avatar/avatar6.png';
+			$query = "INSERT INTO Users(UserName, UserPassword, UserImage) VALUES (:userName, :userPassword, :userImage)";
+			
+			$stmt = $pdo -> prepare( $query );
+			$stmt -> bindParam( ":userName", $_POST['userName'] );
+			$stmt -> bindParam( ":userPassword", $_POST['password'] );
+			$stmt -> bindParam( ":userImage", $image );
+			
+			$stmt -> execute();
+			
+			// pobieram dane nowego usera (potrzebuje Id)
+			$query = "SELECT * FROM Users WHERE UserName = :userName AND UserPassword = :userPassword";
+			$stmt = $pdo -> prepare( $query );
+			$stmt -> bindParam( ":userName", $_POST['userName'] );
+			$stmt -> bindParam( ":userPassword", $_POST['password'] );
+			
+			$stmt -> execute();
+			$result = $stmt -> fetch( PDO::FETCH_ASSOC );
+			
+			$_SESSION['logged'] = 1;
+			$_SESSION['userName'] = $_POST['userName'];
+			$_SESSION['userImage'] = $image;
+			$_SESSION['userId'] = $result['UserId'];
+			
+			$query = "INSERT INTO Categories(UserId, CategoryParent, CategoryName) 
+						VALUES (:userId, 0, 'Katalog główny')";
+			
+			$stmt = $pdo -> prepare( $query );
+			$stmt -> bindParam( ":userId", $_SESSION['userId'] );
+			
+			$stmt -> execute();
 		}
+		
+		$_SESSION['showedHey'] = 0;
+		
+		header("Location: index.php");
+		die('Zalogowano');
 	}catch(PDOException $e)
 	{
 		// coś tam z błędem
