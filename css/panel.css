@@ -79,6 +79,11 @@
 	cursor: pointer;
 }
 
+.folder a, .file a{
+	color: #333333;
+	text-decoration: none;
+}
+
 .goodJob{
 	display: none;
 }
