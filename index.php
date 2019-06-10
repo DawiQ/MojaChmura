@@ -234,7 +234,7 @@ if( isset( $_GET['logout'] ) ){
 								else
 									foreach( $categories as $category ){
 										?>
-										<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
+										<a href="?userId=<?=$id?>&categoryId=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
 										<?php
 									}
 							?>
@@ -298,7 +298,14 @@ if( isset( $_GET['logout'] ) ){
 					</div>
 
 					
+					<form action="upload.php?userId=<?=$id?>&categoryId=<?=$folderId?>" method="post" enctype="multipart/form-data">
+						Wybierz plik do przesłąnia
+						<input type="file" name="fileToUpload" id="fileToUpload">
+						<input type="submit" value="Wyslij" name="submit">
+					</form>
 
+
+					
 
 					<div id = "lastActivity" class="container">
 						<h1 class="mt-4">Ostatnia aktywność</h1>
@@ -348,12 +355,15 @@ if( isset( $_GET['logout'] ) ){
 											<div class="col-8"><div onmouseover="$('.visibleArrow', this).css('visibility', 'visible')"
 											onmouseout="$('.visibleArrow', this).css('visibility', 'hidden');"
 											class="filename mpg">
-											<h3> <i class="far fa-file"></i>
+											<h3> 
+											<i class="far fa-file"></i>
+
 												<a class="expanderHeader downloadAction downloadContext"
-													href="download/pliczek.txt" title="pliczek.txt">
-													<span class="bold"></span>
+													href="uploads/pliczek.txt" title="pliczek.txt">
+													<span class="bold"> </span>
 												</a>
-												<i class="fas fa-cloud-download-alt downloadArrow visibleArrow"></i>
+
+											<i class="fas fa-cloud-download-alt downloadArrow visibleArrow"></i>
 
 											</h3>
 
