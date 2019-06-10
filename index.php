@@ -2,6 +2,11 @@
 ob_start();
 session_start();
 
+if( empty( $_SESSION ) || !isset( $_SESSION['logged'] ) || $_SESSION['logged'] == 0 ){
+	header("Location: login.php");
+	die();
+}
+
 //sprawdzam czy wywołano akcję wylogowania
 if( isset( $_GET['logout'] ) ){
 	$_SESSION['logged'] = 0;
@@ -125,11 +130,12 @@ if( isset( $_GET['logout'] ) ){
 				
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="#"><</a></li>
 						<li class="page-item"><a class="page-link" href="#">1</a></li>
 						<li class="page-item"><a class="page-link" href="#">2</a></li>
 						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+						<li class="page-item"><a class="page-link" href="#">4</a></li>
+						<li class="page-item"><a class="page-link" href="#">></a></li>
 					</ul>
 				</nav>
 			</div>
@@ -223,59 +229,69 @@ if( isset( $_GET['logout'] ) ){
 								$stmt -> execute();
 								$categories = $stmt -> fetchAll( PDO::FETCH_ASSOC );
 								
-								foreach( $categories as $category ){
-									?>
-									<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
-									<?php
-								}
+								if( empty( $categories ) )
+									echo "Brak kategorii";
+								else
+									foreach( $categories as $category ){
+										?>
+										<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
+										<?php
+									}
 							?>
 							</div>
 						</div>
+						
 						<div class="rightPanel">
 							<div id="Dokumenty">
 								<?php
 									if( !isset( $_GET['category'] ) || empty( $_GET['category'] ) ){
-										$folderId = 0;
+										$folderId = $rootId;
 									}else{
 										$folderId = $_GET['category'];
 									}
 								
-									$query = "SELECT * FROM Categories WHERE UserId = :userId  AND CategoryParent = :folderId AND CategoryParent != 0";
+									$query = "SELECT * FROM Categories WHERE UserId = :userId  AND CategoryParent = :folderId AND CategoryParent != :rootId";
 									$stmt = $pdo -> prepare( $query );
 									$stmt -> bindParam( ":userId", $id );
 									$stmt -> bindParam( ":folderId", $folderId );
+									$stmt -> bindParam( ":rootId", $rootId );
 									
 									$stmt -> execute();
 									$categories = $stmt -> fetchAll( PDO::FETCH_ASSOC );
 									
-									foreach( $categories as $category ){
-										?>
-										<div class="folder">
-											<i class="far fa-folder"></i>
-											<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>"><?=$category['CategoryName'] ?></a>
-										</div>
-										<?php
-									}
-								?>
-
-								<br>
+										foreach( $categories as $category ){
+											?>
+											<div class="folder">
+												<i class="far fa-folder"></i>
+												<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>"><?=$category['CategoryName'] ?></a>
+											</div>
+											<?php
+										}
+										
+										if( !empty( $categories ) )
+											echo '<br>';
 								
-								<?php
-								$query = "SELECT * FROM Files WHERE CategoryId = :folderId";
+									$query = "SELECT * FROM Files WHERE CategoryId = :folderId";
+								
 									$stmt = $pdo -> prepare( $query );
 									$stmt -> bindParam( ":folderId", $folderId );
 									
 									$stmt -> execute();
 									$files = $stmt -> fetchAll( PDO::FETCH_ASSOC );
 									
-									foreach( $files as $file ){
-										?>
-										<div class="file" class="pliczek">
-											<i class="far fa-file"></i>
-											<?=$file['FileName']?>
-										</div>
-										<?php
-									}
+										foreach( $files as $file ){
+											?>
+											<div class="file" class="pliczek">
+												<i class="far fa-file"></i>
+												<?=$file['FileName']?>
+											</div>
+											<?php
+										}
+										
+										
+									if( empty( $files ) && empty( $categories ) )
+										echo "Brak danych";
+									
 								?>
 							</div>
 						</div>
