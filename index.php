@@ -2,6 +2,11 @@
 ob_start();
 session_start();
 
+if( empty( $_SESSION ) || !isset( $_SESSION['logged'] ) || $_SESSION['logged'] == 0 ){
+	header("Location: login.php");
+	die();
+}
+
 //sprawdzam czy wywołano akcję wylogowania
 if( isset( $_GET['logout'] ) ){
 	$_SESSION['logged'] = 0;
