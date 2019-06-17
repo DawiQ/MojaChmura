@@ -298,17 +298,22 @@ if( isset( $_GET['logout'] ) ){
 					</div>
 
 
-					<form action="upload.php?userId=<?=$id?>&categoryId=<?=$folderId?>" method="post" enctype="multipart/form-data">
-						Wybierz plik do przesłąnia
-						<input type="file" name="fileToUpload" id="fileToUpload">
-						<input type="submit" value="Wyslij" name="submit">
+					<form action="upload.php?userId=<?=$id?>&categoryId=<?=$folderId?>" method="post" enctype="multipart/form-data" class="mt-3 p-3 bordering">
+						<div class="form-group">
+							<h5>Wybierz plik do przesłania</h5>
+							
+							<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
+							<input type="submit" value="Dodaj plik" name="submit" class="btn btn-dark mt-1">
+						</div>
 					</form>
 
-					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" >
-						<span>Nowy Folder:</span>
-						<input type="text" name="newDir" placeholder="Nazwa folderu..."/>
-
-						<input type="submit" name="uploadBtn2" value="Stwórz" />
+					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" class="mt-3 p-3 bordering">
+						<div class="form-group">
+							<h5>Nowy Folder:</h5>
+							<input type="email" class="form-control" name="newDir" id="newDir" aria-describedby="emailHelp" placeholder="Nazwa folderu..">
+							<small id="emailHelp" class="form-text text-muted">Gdy jesteś w korzeniu zostanie utworzona kategoria.</small>
+							<button type="submit" name="uploadBtn2" class="btn btn-primary mt-1">Utwórz folder</button>
+						</div>
 				  </form>
 
 

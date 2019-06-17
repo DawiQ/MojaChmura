@@ -16,6 +16,10 @@ if(isset($_POST["submit"])) {
     }
 }
 
+if(!file_exists($_FILES['fileToUpload']['tmp_name']) || !is_uploaded_file($_FILES['fileToUpload']['tmp_name'])) {
+    $uploadOk = 0;
+}
+
 $name = uniqid("file_").'.'.$imageFileType;
 
  // Check if $uploadOk is set to 0 by an error
@@ -25,21 +29,21 @@ if ($uploadOk == 0) {
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir.$name)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+		try{
+			$pdo = new PDO('sqlite:database/mojaChmura');
+			$query = 'insert into Files(CategoryId, FileName) Values (:categoryId,:name)';
+			$stmt = $pdo->prepare($query);
+			$stmt->bindParam(':categoryId',$_GET['categoryId']);
+			$stmt->bindParam(':name',$name);
+			$stmt->execute();
+		}catch(PDOException $e)
+		{
+			// coś tam z błędem
+			echo 'Nie można połączyć się z bazą :(';
+		}
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
-}
-try{
-    $pdo = new PDO('sqlite:database/mojaChmura');
-    $query = 'insert into Files(CategoryId, FileName) Values (:categoryId,:name)';
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':categoryId',$_GET['categoryId']);
-    $stmt->bindParam(':name',$name);
-    $stmt->execute();
-}catch(PDOException $e)
-{
-    // coś tam z błędem
-    echo 'Nie można połączyć się z bazą :(';
 }
 
 header("Location: index.php?userId=".$_GET['userId']."&category=".$_GET['categoryId']);

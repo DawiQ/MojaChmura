@@ -116,3 +116,8 @@ float: right;
 .mpg{
 	padding: 20px;
 }
+
+.bordering{
+	border: 1px solid #EAEAEA;
+	border-radius: 3px;
+}
