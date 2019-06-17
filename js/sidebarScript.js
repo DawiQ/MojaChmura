@@ -16,6 +16,7 @@ $(document).ready(function(){
 	$(".closeFilePanel").click(function(){
         $("#fileInfo").slideUp( 300 );
         $("#lastActivity").slideDown( 300 );
+		$(".dirUps, .fileUps").toggle();
 	});
     
     $(".file").click( function(){
@@ -23,6 +24,7 @@ $(document).ready(function(){
 		$(".bold").text( $(this).text() );
         $("#lastActivity").slideUp( 300 );
         $("#fileInfo").slideDown( 300 );
+		$(".dirUps, .fileUps").toggle();
     });
 	
 	$(".submitComment").click(function(e){

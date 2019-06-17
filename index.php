@@ -298,21 +298,21 @@ if( isset( $_GET['logout'] ) ){
 					</div>
 
 
-					<form action="upload.php?userId=<?=$id?>&categoryId=<?=$folderId?>" method="post" enctype="multipart/form-data" class="mt-3 p-3 bordering">
+					<form action="upload.php?userId=<?=$id?>&categoryId=<?=$folderId?>" method="post" enctype="multipart/form-data" class="mt-3 p-3 bordering fileUps">
 						<div class="form-group">
 							<h5>Wybierz plik do przesłania</h5>
 							
 							<input type="file" class="form-control-file" name="fileToUpload" id="fileToUpload">
-							<input type="submit" value="Dodaj plik" name="submit" class="btn btn-dark mt-1">
+							<input type="submit" value="Dodaj plik" name="submit" class="btn btn-dark mt-2">
 						</div>
 					</form>
 
-					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" class="mt-3 p-3 bordering">
+					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" class="mt-3 p-3 bordering dirUps">
 						<div class="form-group">
 							<h5>Nowy Folder:</h5>
 							<input type="email" class="form-control" name="newDir" id="newDir" aria-describedby="emailHelp" placeholder="Nazwa folderu..">
 							<small id="emailHelp" class="form-text text-muted">Gdy jesteś w korzeniu zostanie utworzona kategoria.</small>
-							<button type="submit" name="uploadBtn2" class="btn btn-primary mt-1">Utwórz folder</button>
+							<button type="submit" name="uploadBtn2" class="btn btn-primary mt-2">Utwórz folder</button>
 						</div>
 				  </form>
 
