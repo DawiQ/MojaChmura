@@ -310,7 +310,7 @@ if( isset( $_GET['logout'] ) ){
 					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" class="mt-3 p-3 bordering dirUps">
 						<div class="form-group">
 							<h5>Nowy Folder:</h5>
-							<input type="email" class="form-control" name="newDir" id="newDir" aria-describedby="emailHelp" placeholder="Nazwa folderu..">
+							<input type="text" class="form-control" name="newDir" id="newDir" aria-describedby="emailHelp" placeholder="Nazwa folderu..">
 							<small id="emailHelp" class="form-text text-muted">Gdy jesteś w korzeniu zostanie utworzona kategoria.</small>
 							<button type="submit" name="uploadBtn2" class="btn btn-primary mt-2">Utwórz folder</button>
 						</div>
@@ -361,52 +361,8 @@ if( isset( $_GET['logout'] ) ){
 					<i class="far fa-times-circle closeFilePanel"></i>
 						<div class="col-12" style="margin-top:30px;">
 							<div class="list-group">
-								<div href="#" class="list-group-item list-group-item-action">
-									<div>
-										<div class="row">
-											<div class="col-8"><div onmouseover="$('.visibleArrow', this).css('visibility', 'visible')"
-											onmouseout="$('.visibleArrow', this).css('visibility', 'hidden');"
-											class="filename mpg">
-											<h3>
-											<i class="far fa-file"></i>
-
-												<a class="expanderHeader downloadAction downloadContext"
-													href="uploads/pliczek.txt" title="pliczek.txt">
-													<span class="bold"> </span>
-												</a>
-
-											<i class="fas fa-cloud-download-alt downloadArrow visibleArrow"></i>
-
-											</h3>
-
-										</div></div>
-											<div class="col-4">
-												<div>&#9733;&#9733;&#9733;&#9734;&#9734; 3/5</div>
-												<div><span>701,5 MB</span></div>
-												<div>
-													<i class="fas fa-calendar-week"></i> 10 paź 14 19:46
-												</div>
-											</div>
-										</div>
-
-										
-
-										<div class="row">
-											<div class="col-3">
-												<img class="img-fluid" , class="img-responsive"
-													src="https://marketplace.canva.com/MAB5sssN0Qw/1/thumbnail_large/canva-file--MAB5sssN0Qw.png">
-											</div>
-											<div class="col-9">
-												<b style="font-family:normal;font-size:15px;color:#000000;">
-													<br>Gatunek:PLIK,TEXT
-													<br>Plik zawierający plany podbicia świata przy pomocy ogórka.
-													<br></b>
-												<br>
-												</span>
-											</div>
-										</div>
-
-									</div>
+								<div href="#" class="list-group-item list-group-item-action fileInfo">
+									
 								</div>
 
 							</div>
@@ -421,26 +377,18 @@ if( isset( $_GET['logout'] ) ){
 							<div href="#" class="list-group-item list-group-item-action">
 								<div>
 									<div class="row">
-										<form class="col-10">
-											<input class="col-12 commentValue" type="text" name="LastName"
+										<form action="addComment.php" class="col-10" id="formularzKomentarz">
+											<input class="col-12 commentValue" type="text" name="commentValue"
 												value="" placeholder="Dodaj komentarz.."><br>
+											<input type="hidden" name="categoryId" value="<?=$folderId?>" />
+											<input type="hidden" name="userId" value="<?=$id?>" />
+											<input type="hidden" id="fileNameComment" name="fileName" value="" />
 										</form>
 										<input class="col-2 submitComment " type="submit" value="Wyślij">
 									</div>
 
 									<div href="#" class="list-group-item list-group-item-action comments" style="margin:5px">
-										<div class="row">
-											<b class="list-group-item col-2">Uzytkownik</b>
-											<p class="list-group-item  col-8 "> przykładowy komentarz</p>
-										</div>
-										<div class="row">
-											<b class="list-group-item col-2">koncicho</b>
-											<p class="list-group-item  col-8 "> hehe fajny plik</p>
-										</div>
-										<div class="row">
-											<b class="list-group-item col-2">Kamil</b>
-											<p class="list-group-item  col-8 "> Beznadziejne, lepiej to usuń</p>
-										</div>
+										
 									</div>
 
 
@@ -473,6 +421,9 @@ if( isset( $_GET['logout'] ) ){
 		src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
 	<script type="text/javascript" src="http://www.prepbootstrap.com/Content/data/fileManagerData.js"></script>
 
+	<script type="text/javascript">
+		let categoryId = '<?=$folderId?>';
+	</script>
 	<script src="js/sidebarScript.js"></script>
 	<script src="js/explorerScript.js"></script>
 </body>

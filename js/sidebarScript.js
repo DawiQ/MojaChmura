@@ -1,5 +1,7 @@
 $(document).ready(function(){
 	
+	var fileName = '';
+	
 	$( ".commentValue").val('');
 	
     $("#menu-toggle").click(function(e) {
@@ -22,16 +24,50 @@ $(document).ready(function(){
     $(".file").click( function(){
 		//alert( $(this).text() );
 		$(".bold").text( $(this).text() );
+		
         $("#lastActivity").slideUp( 300 );
+		
+		fileName = $.trim( $(this).text() );
+		
         $("#fileInfo").slideDown( 300 );
 		$(".dirUps, .fileUps").toggle();
+		
+		info = [];
+		info[0] = categoryId;
+		info[1] = fileName;
+		
+		jQuery.ajax({
+			url: 'getFileInfo.php',
+			method: 'POST',
+			data: {info: info}
+		}).done(function (response) {
+			$(".fileInfo").html( response );
+		}).fail(function () {
+		});
+
+		jQuery.ajax({
+			url: 'selectComments.php',
+			method: 'POST',
+			data: {info: info}
+		}).done(function (response) {
+			$(".comments").prepend( response );
+		}).fail(function () {
+		});
     });
 	
 	$(".submitComment").click(function(e){
 		e.preventDefault();
 		var comment = $( ".commentValue").val();
 		
-		$(".comments").prepend( '<div class="row"><b class="list-group-item col-2">Nowy user</b><p class="list-group-item  col-8 "> ' + comment + '</p></div>' );
+		jQuery.ajax({
+			url: 'addComment.php',
+			method: 'POST',
+			data: $('#formularzKomentarz').serialize()
+		}).done(function (response) {
+			$(".comments").prepend( response );
+		}).fail(function () {
+		});
+		
 	});
 	
 });
