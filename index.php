@@ -297,15 +297,22 @@ if( isset( $_GET['logout'] ) ){
 						</div>
 					</div>
 
-					
+
 					<form action="upload.php?userId=<?=$id?>&categoryId=<?=$folderId?>" method="post" enctype="multipart/form-data">
 						Wybierz plik do przesłąnia
 						<input type="file" name="fileToUpload" id="fileToUpload">
 						<input type="submit" value="Wyslij" name="submit">
 					</form>
 
+					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" >
+						<span>Nowy Folder:</span>
+						<input type="text" name="newDir" placeholder="Nazwa folderu..."/>
 
-					
+						<input type="submit" name="uploadBtn2" value="Stwórz" />
+				  </form>
+
+
+
 
 					<div id = "lastActivity" class="container">
 						<h1 class="mt-4">Ostatnia aktywność</h1>
@@ -355,7 +362,7 @@ if( isset( $_GET['logout'] ) ){
 											<div class="col-8"><div onmouseover="$('.visibleArrow', this).css('visibility', 'visible')"
 											onmouseout="$('.visibleArrow', this).css('visibility', 'hidden');"
 											class="filename mpg">
-											<h3> 
+											<h3>
 											<i class="far fa-file"></i>
 
 												<a class="expanderHeader downloadAction downloadContext"
