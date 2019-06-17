@@ -234,7 +234,7 @@ if( isset( $_GET['logout'] ) ){
 								else
 									foreach( $categories as $category ){
 										?>
-										<a href="?userId=<?=$id?>&categoryId=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
+										<a href="?userId=<?=$id?>&category=<?=$category['CategoryId']?>" class="list-group-item list-group-item-action directory"><?=$category['CategoryName']?></a>
 										<?php
 									}
 							?>

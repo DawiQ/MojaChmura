@@ -36,11 +36,12 @@ try{
     $stmt->bindParam(':categoryId',$_GET['categoryId']);
     $stmt->bindParam(':name',$name);
     $stmt->execute();
-
 }catch(PDOException $e)
 {
     // coś tam z błędem
     echo 'Nie można połączyć się z bazą :(';
 }
 
+header("Location: index.php?userId=".$_GET['userId']."&category=".$_GET['categoryId']);
+die();
 ?>
