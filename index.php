@@ -297,7 +297,12 @@ if( isset( $_GET['logout'] ) ){
 						</div>
 					</div>
 
-					
+					<form method="POST" action="createFolder.php?userId=<?=$id?>&categoryId=<?=$folderId?>" >
+						<span>Nowy Folder:</span>
+						<input type="text" name="newDir" placeholder="Nazwa folderu..."/>
+					 
+						<input type="submit" name="uploadBtn2" value="Stwórz" />
+				  </form>
 
 
 					<div id = "lastActivity" class="container">
