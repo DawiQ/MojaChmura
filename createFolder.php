@@ -6,11 +6,12 @@ if( !empty( $_SESSION ) ){
 	// łączę się z bazą
 	try{
 		$pdo = new PDO('sqlite:database/mojaChmura');
-		$query = "INSERT INTO Categories( UserId, CategoryName ) VALUES (:userId, :categoryId)";
+		$query = "INSERT INTO Categories( UserId, CategoryName, CategoryParent ) VALUES (:userId, :categoryName, :categoryParent)";
 		
 		$stmt = $pdo -> prepare( $query );
 		$stmt -> bindParam( ':userId', $_GET['userId'] );
-		$stmt -> bindParam( ':categoryId', $_GET['categoryId'] );
+		$stmt -> bindParam( ':categoryParent', $_GET['categoryId'] );
+		$stmt -> bindParam( ':categoryName', $_POST['newDir'] );
 		
 		$stmt -> execute();
 	}catch(PDOException $e)
@@ -22,7 +23,7 @@ if( !empty( $_SESSION ) ){
 	
 }
 
-//header("Location: index.php?userId=".$_GET['userId']."&categoryId=".$_GET['categoryId']);
+header("Location: index.php?userId=".$_GET['userId']."&category=".$_GET['categoryId']);
 die();
 
 
