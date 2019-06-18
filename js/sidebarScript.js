@@ -25,6 +25,8 @@ $(document).ready(function(){
 		//alert( $(this).text() );
 		$(".bold").text( $(this).text() );
 		
+		$("#fileNameComment").val( $.trim( $(this).text() ) );
+		
         $("#lastActivity").slideUp( 300 );
 		
 		fileName = $.trim( $(this).text() );
@@ -34,7 +36,7 @@ $(document).ready(function(){
 		
 		info = [];
 		info[0] = categoryId;
-		info[1] = fileName;
+		info[1] = $.trim( $(this).text() );
 		
 		jQuery.ajax({
 			url: 'getFileInfo.php',
@@ -50,10 +52,25 @@ $(document).ready(function(){
 			method: 'POST',
 			data: {info: info}
 		}).done(function (response) {
-			$(".comments").prepend( response );
+			$(".comments").html( response );
 		}).fail(function () {
 		});
     });
+	
+	$('#formularzKomentarz').submit( function(e){
+		e.preventDefault();
+		
+		var comment = $( ".commentValue").val();
+		
+		jQuery.ajax({
+			url: 'addComment.php',
+			method: 'POST',
+			data: $('#formularzKomentarz').serialize()
+		}).done(function (response) {
+			$(".comments").prepend( response );
+		}).fail(function () {
+		});
+	});
 	
 	$(".submitComment").click(function(e){
 		e.preventDefault();

@@ -46,7 +46,6 @@ if( !empty( $_SESSION ) ){
 		$res = $stmt -> fetch( PDO::FETCH_ASSOC );
 		
 		$userName = $res['UserName'];
-		
 		echo '<div class="row"><b class="list-group-item col-2">'.$userName.'</b><p class="list-group-item  col-8 "> ' . $_POST['commentValue'] . '</p></div>';
 	}catch(PDOException $e)
 	{

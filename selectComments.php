@@ -19,7 +19,7 @@ if( !empty( $_SESSION ) ){
 	try{
 		$pdo = new PDO('sqlite:database/mojaChmura');
 		
-		$select = "SELECT * FROM files WHERE fileName = :fileName AND categoryId = :categoryId";
+		$select = "SELECT * FROM files WHERE FileName = :fileName AND CategoryId = :categoryId";
 		$stmt = $pdo -> prepare( $select );
 		$stmt -> bindParam( ':fileName', $_POST['info'][1] );
 		$stmt -> bindParam( ':categoryId', $_POST['info'][0] );
