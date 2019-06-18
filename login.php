@@ -2,10 +2,11 @@
 ob_start();
 session_start();
 
+			$error = 0;
 // sprawdzam czy użytkownik nie jest czasem zalogowany
 // jeżeli tak to wyjazd na strone główną
 if( isset( $_SESSION['logged'] ) ){
-	header("Location: index.php");
+	//header("Location: index.php");
 	die('Przekierowywanie..');
 // tutaj sprawdzam czy wysłano formularz
 }else if( isset( $_POST ) && !empty($_POST) ){
@@ -21,15 +22,19 @@ if( isset( $_SESSION['logged'] ) ){
 			
 			$stmt -> execute();
 			$result = $stmt -> fetch( PDO::FETCH_ASSOC );
-			
 			if( !empty( $result ) ){
 				$_SESSION['logged'] = 1;
 				$_SESSION['userName'] = $result['UserName'];
 				$_SESSION['userImage'] = $result['UserImage'];
 				$_SESSION['userId'] = $result['UserId'];
+				$_SESSION['showedHey'] = 0;
+				
+				header("Location: index.php");
+				die('Zalogowano');
 			}else{
-				die('Cos poszlo nie tak :(');
+				$error =  'Cos poszlo nie tak :(';
 			}
+		
 		// formularz rejstracji
 		}else{
 			$image = 'https://www.bootdey.com/img/Content/avatar/avatar6.png';
@@ -63,19 +68,17 @@ if( isset( $_SESSION['logged'] ) ){
 			$stmt -> bindParam( ":userId", $_SESSION['userId'] );
 			
 			$stmt -> execute();
+			$_SESSION['showedHey'] = 0;
+			
+			header("Location: index.php");
+			die('Zarejestrowano');
 		}
-		
-		$_SESSION['showedHey'] = 0;
-		
-		header("Location: index.php");
-		die('Zalogowano');
 	}catch(PDOException $e)
 	{
 		// coś tam z błędem
 		echo 'Nie można połączyć się z bazą :(';
 	}
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -94,11 +97,21 @@ if( isset( $_SESSION['logged'] ) ){
     <body>
 
         <div class="row no-gutters">
-
             <div id = "container" class="col-3">
 
 				<div class="loginBox">
-					<form action="login.php" method="POST">
+					<?php
+					if($error !== 0){
+						?>
+						<div class="alert alert-success goodJob" role="alert">
+							<h4 class="alert-heading">Ups!</h4>
+							<i class="far fa-times-circle"></i>
+							<p>Niepoprawny login lub hasło</p>
+						</div>
+					<?php
+					}
+					?>
+					<form action="login.php?cos=cos" method="POST">
 						<div class = "row">
 							<div class="col-1"></div>
 							<div class = "col-10">
@@ -175,4 +188,5 @@ if( isset( $_SESSION['logged'] ) ){
 </html>
 <?php
 ob_end_flush();
+
 ?>
